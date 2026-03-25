@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript 수업</title>
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+        let output  = document.getElementById('output');
+        let myTitle = '마이 타이틀';
+        output.innerHTML += '타이틀 : ' + myTitle+'<br>';
+
+        let myname;
+        output.innerHTML += '이름 : ' + myname + '<br>';
+
+        let num = 1;
+        let str = '1';
+
+        console.log(typeof num );
+        console.log(typeof str );
+
+        output.innerHTML += '1 === "1" 비교 : '+ (num === str) +' <br>';
+        output.innerHTML += '1 == "1" 비교 : '+ (num == str) +' <br>';
+        output.innerHTML += '결과 : '+ (myname === undefined ? 'no': 'yes')+' <br>';
+
+        myname = '김철수';
+        output.innerHTML += '이름(값할당) : ' + myname + '<br>';
+        const PI = 3.14;
+
+        output.innerHTML += 'pi : ' + PI + '<br>';
+        const hong = {name:'홍길동'};
+        console.log(hong.name);
+
+    </script>
+
+</body>
+</html>

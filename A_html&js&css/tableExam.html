@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        img{
+            height: 80px;
+            width: 150px;
+        }
+        body{
+            background-image: url("images/milk.jpg");
+            background-repeat: repeat-x;
+            background-attachment: fixed;
+        }
+        table{
+            width: 500px;
+            border-top: 1px solid darkgreen;
+            border-left: 1px solid darkgreen;
+        }
+        thead{
+            background: darkgreen;
+            color: white;
+            font-size: 12px;
+        }
+        tbody{
+            color: green;
+            font-size: 12px;
+        }
+        th{
+            border-right: 1px solid white;
+            padding: 10px;
+        }
+        td{
+            border-right: 1px solid darkgreen;
+            border-bottom: 1px solid darkgreen;
+            padding: 22px;
+        }
+    </style>
+
+    <script>
+        let html = '';
+        let URL = 'http://localhost:8080/api/getDessertList';
+        $(function(){
+            getApi();
+        });
+
+        function getApi(){
+            $.get(URL,
+                // 서버가 필요한 정보를 같이 보냄.
+                {},
+                // 응답이 오면 호출되는 콜백 함수
+                function(data, status) {
+                    data.forEach(function(t, index, arr){
+                        appendTest(t.name, t.image, t.desc);
+                    });
+                }
+            );
+        }
+        function getApi2(){
+            $.get(URL,
+                // 서버가 필요한 정보를 같이 보냄.
+                {},
+                // 응답이 오면 호출되는 콜백 함수
+                function(data, status) {
+                    data.forEach(function(t, index, arr){
+                        appendTest2(t.name, t.image, t.desc);
+                        if (index === arr.length - 1) {
+                            $('tbody').html(html);
+                        }
+                    });
+                }
+            );
+        }
+/*
+        function appendTest3(name, image, desc){
+            let tbd = $('<tbody>');
+            let tr = $('<tr>');
+            let td1 = $('<td>');
+            let td2 = $('<td>');
+            let td3 = $('<td>');
+            let a = $('<a>');
+            let img = $('<img>');
+            tbd.appendTo('.tb');
+            a.attr('href','https://www.naver.com').text(name).appendTo(td1);
+            td1.appendTo(tr);
+            tr.appendTo(tbd);
+            td2.appendTo(tr);
+            img.attr('src','images/'+image).attr('alt',desc).appendTo(td2);
+            td3.text(desc).appendTo(tr);
+            tr.appendTo(tbd);
+        }*/
+        function appendTest(name, image, desc){
+            let tbd = $('<tbody>');
+            let tr = $('<tr>');
+            $('<a>').attr('href','https://www.naver.com').text(name).appendTo($('<td>')).parent().appendTo(tr);
+            $('<img>').attr('src','images/'+image).attr('alt',desc).appendTo($('<td>')).parent().appendTo(tr);
+            $('<td>').text(desc).appendTo(tr);
+            tr.appendTo(tbd).parent().appendTo('.tb');
+        }
+        function appendTest2(name, image, desc) {
+            html += '<tr><td><a href='+'"https://www.naver.com"'+'>'+name+'</a></td><td><img src='+'"images/'+image+'"'+'alt="'+desc+'"'+'/></td><td>'+desc+'</td></tr>';
+        }
+    </script>
+</head>
+<body>
+<table class="tb">
+    <caption>주요 허브 소개</caption>
+    <thead>
+    <tr>
+    <th>이름</th>
+                <th>사진</th>
+                <th>설명</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+</html>
