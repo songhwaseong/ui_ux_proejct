@@ -3,10 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>bootstrap 적용</title>
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .totord {
+            display: flex;
+            align-content: flex-start;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+    </style>
 </head>
 <body>
+<div class="container mt-3">
+    <h2>Hover Rows</h2>
+    <p>The .table-hover class enables a hover state (grey background on mouse over) on table rows:</p>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th style="font-size: 1.2rem;"><input type="checkbox" id="allChk" onclick="allChckBtn(this)">전체
+                선택
+            </th>
+            <th style="font-size: 1.2rem;">상품 정보</th>
+            <th style="font-size: 1.2rem;">수량</th>
+            <th style="font-size: 1.2rem;">금액</th>
+            <th style="font-size: 1.2rem;">삭제</th>
+        </tr>
+        </thead>
+        <tbody id="tbd">
+        <tr class="atr">
+            <td class="text-center align-middle"><input class="chbx" onclick="clckchbx();" type="checkbox">
+            </td>
+            <td class="row">
+                <div class="col-4">
+                    <img class="product" src="/images/americano01.png" alt="노트북">
+                </div>
+                <div class="col-8">
+                    아메리카노
+                </div>
+            </td>
+            <td class="text-center align-middle"><input type="number" onchange="chngPr(this)"
+                                                        class="form-control cnt" style="width: 80px; margin: 0 auto"
+                                                        value="1" min="1"></td>
+            <td class="price" data-prc="4500">4,500</td>
+            <td class="text-center align-middle">
+                <button onclick="remove(this);" class="btn btn-danger">삭제</button>
+            </td>
+        </tr>
+        <tr class="atr">
+            <td class="text-center align-middle"><input class="chbx" onclick="clckchbx();" type="checkbox">
+            </td>
+            <td class="row">
+                <div class="col-4">
+                    <img class="product" src="/images/chamomile.jpg" alt="노트북">
+                </div>
+                <div class="col-8">
+                    캐모마일
+                </div>
+            </td>
+            <td class="text-center align-middle"><input type="number" onchange="chngPr(this)"
+                                                        class="form-control cnt" style="width: 80px; margin: 0 auto"
+                                                        value="1" min="1"></td>
+            <td class="price" data-prc="7000">7,000</td>
+            <td class="text-center align-middle">
+                <button onclick="remove(this);" class="btn btn-danger">삭제</button>
+            </td>
+        </tr>
+        <tr class="atr">
+            <td class="text-center align-middle"><input class="chbx" onclick="clckchbx();" type="checkbox">
+            </td>
+            <td class="row">
+                <div class="col-4">
+                    <img class="product" src="/images/basil.jpg" alt="데스크탑">
+                </div>
+                <div class="col-8">
+                    바질
+                </div>
+            </td>
+            <td class="text-center align-middle"><input type="number" onchange="chngPr(this)"
+                                                        class="form-control cnt" style="width: 80px; margin: 0 auto"
+                                                        value="1" min="1"></td>
+            <td class="price" data-prc="6600">6,600</td>
+            <td class="text-center align-middle">
+                <button onclick="remove(this);" class="btn btn-danger">삭제</button>
+            </td>
+        </tr>
+        <tr class="atr">
+            <td class="text-center align-middle"><input class="chbx" onclick="clckchbx();" type="checkbox"></td>
+            <td class="row">
+                <div class="col-4">
+                    <img class="product" src="/images/lemonbalm.jpg" alt="데스크탑">
+                </div>
+                <div class="col-8">
+                    레몬밤
+                </div>
+            </td>
+            <td class="text-center align-middle"><input type="number" onchange="chngPr(this)"
+                                                        class="form-control cnt" style="width: 80px; margin: 0 auto"
+                                                        value="1" min="1"></td>
+            <td class="price" data-prc="2500">2,500</td>
+            <td class="text-center align-middle">
+                <button onclick="remove(this);" class="btn btn-danger">삭제</button>
+            </td>
+        </tr>
+        <tr class="atr">
+            <td class="text-center align-middle"><input class="chbx" onclick="clckchbx();" type="checkbox">
+            </td>
+            <td class="row">
+                <div class="col-4">
+                    <img class="product" src="/images/french_baguette_01.png" alt="데스크탑">
+                </div>
+                <div class="col-8">
+                    바질
+                </div>
+            </td>
+            <td class="text-center align-middle"><input type="number" onchange="chngPr(this)"
+                                                        class="form-control cnt" style="width: 80px; margin: 0 auto"
+                                                        value="1" min="1"></td>
+            <td class="price" data-prc="9900">9,900</td>
+            <td class="text-center align-middle">
+                <button onclick="remove(this);" class="btn btn-danger">삭제</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="totord">
+        <h3 id="tpr">총 주문금액 : 0</h3>
+        <button id="allDelBtn" class="btn btn-danger" onclick="delAll();"
+                style="background-color: red;display: none">
+            전체삭제
+        </button>
+    </div>
 
+    <div class="text-end">
+        <button class="btn btn-primary">
+            주문하기
+        </button>
+    </div>
+</div>
+<script>
+
+    chgToPrc();
+    let alChk = document.querySelector('#allChk');
+    let alChkBtn = document.querySelector('#allDelBtn');
+
+    function remove(el){
+        let chbx = el.parentNode.parentNode.children[0].firstChild;
+        if (!chbx.checked) {
+            alert('선택후 삭제 해주세요.');
+            return;
+        }
+        el.parentNode.parentNode.remove();
+        chgToPrc();
+    }
+    function chngPr (el){
+        let prNd = el.parentNode.parentNode.children[3];
+        let pr = Number(prNd.getAttribute('data-prc'));
+        prNd.innerHTML = commaJoin(pr * Number(el.value));
+        chgToPrc();
+        allDelBtnDiplay();
+    }
+
+    function allChckBtn(el){
+        document.querySelectorAll('.chbx').forEach(function (t) {
+            t.checked = !!el.checked;       //죽이네 반대값으로 변경
+        });
+        allDelBtnDiplay();
+    }
+
+    function noComa(prc){
+        Number(prc.toString().replace(/,/g, ''));
+    }
+    function commaJoin (o){
+        return o.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function chgToPrc (){
+        let prArr = document.getElementsByClassName('price');
+        let cntArr = document.getElementsByClassName('cnt');
+        let tot = 0;
+        for (let i = 0; i < prArr.length; i++) {
+            tot += Number(prArr[i].getAttribute('data-prc')) * Number(cntArr[i].value);
+        }
+        document.getElementById('tpr').innerHTML = '총 주문금액 : ' + commaJoin(tot);
+    }
+
+    function allDelBtnDiplay(){
+        alChkBtn.style.display = alChk.checked ? 'block' : 'none';
+    }
+
+    function clckchbx(){
+        alChk.checked = isAllChck();
+        allDelBtnDiplay();
+    }
+    function isAllChck (){
+        let isAllchk = true;
+        document.querySelectorAll('.chbx').forEach(t => {
+            if (!t.checked) {
+                isAllchk = false;
+            }
+        });
+        return isAllchk;
+    }
+
+    function delAll(){
+        let trArr = document.querySelectorAll('.atr');
+        trArr.forEach(t =>  {t.remove();});
+        alChk.checked = false;
+        chgToPrc();
+        allDelBtnDiplay();
+    }
+
+</script>
 </body>
 </html>

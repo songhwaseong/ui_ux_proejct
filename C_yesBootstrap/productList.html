@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container my-4">
+    <h4 class="my4">상품 목록 페이지</h4>
+    <!-- 관리자 전용 버튼 -->
+    <div class="d-flex justify-content-start">
+      <a href="javascript:register();">
+        <button id="insertBtn" class="btn btn-primary mb-3">상품 등록</button>
+      </a>
+    </div>
+
+    <!-- 상품 목록 -->
+    <div class="row" id="productContainer">
+      <!-- JS로 카드 생성 -->
+    </div>
+  </div>
+<script>
+
+  // getApi();
+  let URL1 = 'http://localhost:8080/api/getDessertList';        //상품리스트 조회
+  let URL2 = 'http://localhost:8080/api/getDessert';            //상품상세 조회
+  let cid = 1;
+  let delId = [];
+
+  fetchDataList();
+  async function fetchDataList() {
+    try {
+      // 1. API 호출
+      const response = await fetch(URL1);
+
+      // 2. 응답 상태 확인
+      if (!response.ok) {
+        throw new Error('네트워크 응답이 좋지 않습니다.');
+      }
+
+      // 3. JSON 데이터로 변환
+      const data = await response.json();
+      dispList(data);
+    } catch (error) {
+      console.error('데이터 가져오기 실패:', error);
+    }
+  }
+
+  async function fetchData() {
+    try {
+      if(cid === 16 && delId.length === 0){
+        return;
+      }
+      // 1. API 호출 (삭제된 ID 저장해서 있으면 해당 ID 상품 조회)
+      const response = await fetch(URL2+'?id='+(delId.length !== 0 ? delId.pop(): cid++));
+
+      // 2. 응답 상태 확인
+      if (!response.ok) {
+        throw new Error('네트워크 응답이 좋지 않습니다.');
+      }
+
+      // 3. JSON 데이터로 변환
+      const json = await response.json();
+      dispDessert(json);
+    } catch (error) {
+      console.error('데이터 가져오기 실패:', error);
+    }
+  }
+
+  const user = {
+    role: 'ADMIN' //USER, ADMIN
+  };
+
+  if(user.role !== 'ADMIN'){
+    document.getElementById('insertBtn').remove();
+  }
+
+  const container = document.getElementById('productContainer');
+
+  function dispDessert(item) {
+      const col  = document.createElement('div');
+      col.className = 'col-md-4 mb-4';
+      col.id = item.id;
+      col.innerHTML = `
+            <div class="card h-100" style="cursor:pointer;" onclick="goDetail(${item.id})">
+                <img src="/images/${item.image}" class="card-img-top" style="height:200px;">
+                <div class="card-body">
+                    <table style="width:100%; border-collapse:collapse;">
+                        <tr>
+                            <td style="width:70%;">
+                                <h5>${item.name} (${item.id})</h5>
+                            </td>
+                            <td rowspan="2" style="text-align:center;" id="admin-${item.id}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                가격 : ${item.price.toLocaleString()} 원
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        `;
+      container.appendChild(col);
+      if(user.role === 'ADMIN'){
+        const adminDiv = document.getElementById(`admin-${item.id}`);
+        adminDiv.innerHTML = `
+                <button class="btn btn-warning btn-sm mb-1" onclick="event.stopPropagation(); edit(${item.id})">수정</button>
+                <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); remove(${item.id}, '${item.name}')">삭제</button>
+            `;
+      }
+
+  }
+
+  function dispList(data) {
+    data.forEach(item => {
+        cid++;
+        dispDessert(item);
+    });
+  }
+
+  function register(){
+    fetchData();
+  }
+
+  // 🔹 상세 페이지 이동
+  function goDetail(id) {
+      window.location.href = 'productDetail.html?id='+id;
+  }
+
+  // 🔹 수정
+  function edit(id) {
+    alert("수정 페이지 이동: " + id);
+  }
+
+  // 🔹 삭제
+  function remove(id, name) {
+    const isDelete = confirm(`'${name}' 상품을 삭제하시겠습니까?`);
+    if (!isDelete) return;
+
+    document.getElementById(id).remove();
+    delId.push(id);
+
+    alert(`'${name}' 삭제 완료 (예시)`);
+
+    // 화면에서 제거
+    //location.reload(); // 간단 처리
+  }
+
+
+</script>
+</body>
+</html>
