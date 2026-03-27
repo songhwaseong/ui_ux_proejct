@@ -138,13 +138,11 @@
 
   // 🔹 삭제
   function remove(id, name) {
-    const isDelete = confirm(`'${name}' 상품을 삭제하시겠습니까?`);
-    if (!isDelete) return;
+    // const isDelete = confirm(`'${name}' 상품을 삭제하시겠습니까?`);
+    // if (!isDelete) return;
 
     document.getElementById(id).remove();
     delId.push(id);
-
-    alert(`'${name}' 삭제 완료 (예시)`);
 
     // 화면에서 제거
     //location.reload(); // 간단 처리

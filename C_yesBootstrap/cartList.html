@@ -151,9 +151,14 @@
 </div>
 <script>
 
-    chgToPrc();
+
     let alChk = document.querySelector('#allChk');
     let alChkBtn = document.querySelector('#allDelBtn');
+
+    const commaJoin = o => {
+        //return o.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return o.toLocaleString();
+    }
 
     function remove(el){
         let chbx = el.parentNode.parentNode.children[0].firstChild;
@@ -181,9 +186,6 @@
 
     function noComa(prc){
         Number(prc.toString().replace(/,/g, ''));
-    }
-    function commaJoin (o){
-        return o.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     function chgToPrc (){
@@ -221,7 +223,7 @@
         chgToPrc();
         allDelBtnDiplay();
     }
-
+    chgToPrc();
 </script>
 </body>
 </html>
